@@ -37,8 +37,6 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.maven.doxia.logging.Log;
-import org.apache.maven.doxia.logging.SystemStreamLog;
 import org.apache.maven.doxia.parser.ParseException;
 import org.apache.maven.doxia.parser.Parser;
 import org.apache.maven.doxia.sink.Sink;
@@ -67,6 +65,8 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 import com.ibm.icu.text.CharsetDetector;
 import com.ibm.icu.text.CharsetMatch;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static java.lang.String.format;
 
@@ -133,14 +133,7 @@ public class DefaultConverter
     private PlexusContainer plexus;
 
     /** Doxia logger */
-    private Log log;
-
-    /** {@inheritDoc} */
-    @Override
-    public void enableLogging( Log log )
-    {
-        this.log = log;
-    }
+    private Logger log;
 
     /**
      * Returns a logger for this sink.
@@ -148,11 +141,11 @@ public class DefaultConverter
      *
      * @return Log
      */
-    protected Log getLog()
+    protected Logger getLog()
     {
         if ( log == null )
         {
-            log = new SystemStreamLog();
+            log = LoggerFactory.getLogger( getClass() );
         }
 
         return log;
@@ -247,7 +240,6 @@ public class DefaultConverter
             try
             {
                 parser = ConverterUtil.getParser( plexus, input.getFormat(), SUPPORTED_FROM_FORMAT );
-                parser.enableLogging( log );
             }
             catch ( ComponentLookupException e )
             {
@@ -278,7 +270,6 @@ public class DefaultConverter
             {
                 throw new ConverterException( "IOException: " + e.getMessage(), e );
             }
-            sink.enableLogging( log );
 
             if ( getLog().isDebugEnabled() )
             {
@@ -345,7 +336,6 @@ public class DefaultConverter
         try
         {
             parser = ConverterUtil.getParser( plexus, inputFormat, SUPPORTED_FROM_FORMAT );
-            parser.enableLogging( log );
         }
         catch ( ComponentLookupException e )
         {
@@ -427,8 +417,6 @@ public class DefaultConverter
         {
             throw new ConverterException( "IOException: " + e.getMessage(), e );
         }
-
-        sink.enableLogging( log );
 
         if ( getLog().isDebugEnabled() )
         {

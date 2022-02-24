@@ -32,8 +32,6 @@ import org.apache.maven.doxia.Converter;
 import org.apache.maven.doxia.ConverterException;
 import org.apache.maven.doxia.DefaultConverter;
 import org.apache.maven.doxia.UnsupportedFormatException;
-import org.apache.maven.doxia.logging.Log;
-import org.apache.maven.doxia.logging.SystemStreamLog;
 import org.apache.maven.doxia.parser.AbstractParser;
 import org.apache.maven.doxia.wrapper.InputFileWrapper;
 import org.apache.maven.doxia.wrapper.OutputFileWrapper;
@@ -110,12 +108,6 @@ public class ConverterCli
         }
 
         Converter converter = new DefaultConverter();
-        Log log = new SystemStreamLog();
-        if ( debug )
-        {
-            log.setLogLevel( Log.LEVEL_DEBUG );
-        }
-        converter.enableLogging( log );
 
         InputFileWrapper input;
         OutputFileWrapper output;

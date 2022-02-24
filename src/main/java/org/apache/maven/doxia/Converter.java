@@ -19,7 +19,6 @@ package org.apache.maven.doxia;
  * under the License.
  */
 
-import org.apache.maven.doxia.logging.LogEnabled;
 import org.apache.maven.doxia.wrapper.InputFileWrapper;
 import org.apache.maven.doxia.wrapper.InputReaderWrapper;
 import org.apache.maven.doxia.wrapper.OutputFileWrapper;
@@ -31,7 +30,6 @@ import org.apache.maven.doxia.wrapper.OutputStreamWrapper;
  * @author <a href="mailto:vincent.siveton@gmail.com">Vincent Siveton</a>
  */
 public interface Converter
-    extends LogEnabled
 {
     /**
      * @return a not null array containing supported input formats, i.e. <code>apt</code>.
